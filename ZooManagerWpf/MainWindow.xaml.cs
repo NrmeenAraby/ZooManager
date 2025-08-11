@@ -29,6 +29,7 @@ namespace ZooManagerWpf
             string connectionString = ConfigurationManager.ConnectionStrings["ZooManagerWpf.Properties.Settings.tmamDBConnectionString"].ConnectionString;
             sqlConnection = new SqlConnection(connectionString);
             showZoos();
+            showAllAnimals();
         }
 
         private void showZoos()
@@ -70,6 +71,27 @@ namespace ZooManagerWpf
                     listAssociatedAnmials.DisplayMemberPath = "Name";
                     listAssociatedAnmials.SelectedValuePath= "Id";
                     listAssociatedAnmials.ItemsSource = animalTable.DefaultView;
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+            }
+        }
+        private void showAllAnimals()
+        {
+            try
+            {
+                string query = "select * from Animal";
+                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(query, sqlConnection);
+                using(sqlDataAdapter){
+                    DataTable animalTable= new DataTable();
+                    sqlDataAdapter.Fill(animalTable);
+
+                    listAllAnmials.DisplayMemberPath= "Name";
+                    listAllAnmials.SelectedValuePath = "Id";
+                    listAllAnmials.ItemsSource = animalTable.DefaultView;
+
                 }
             }
             catch (Exception e)

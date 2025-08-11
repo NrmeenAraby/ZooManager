@@ -11,6 +11,7 @@
         <ListBox x:Name="listZoos" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,41,0,0" Height="228" Width="203" SelectionChanged="listZoos_SelectionChanged"/>
         <Label Content="Associated Animals List" HorizontalAlignment="Right" Margin="0,10,309,0" VerticalAlignment="Top" RenderTransformOrigin="1.948,0.167" Width="140"/>
         <ListBox x:Name="listAssociatedAnmials" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,41,0,0" Height="228" Width="203"/>
+        <ListBox x:Name="listAllAnmials" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="490,41,0,0" Height="358" Width="168"/>
 
     </Grid>
 </Window>
