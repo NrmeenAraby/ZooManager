@@ -33,9 +33,11 @@ namespace ZooManagerWpf
 
         private void showZoos()
         {
-            string query = "select * from Zoo";
-            SqlDataAdapter sqlDataAdapter= new SqlDataAdapter(query,sqlConnection);
+           
             try {
+                string query = "select * from Zoo";
+                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(query, sqlConnection);
+
                 using (sqlDataAdapter)
                 {
                     DataTable zooTable = new DataTable();
@@ -51,5 +53,33 @@ namespace ZooManagerWpf
             }
         }
 
+        private void showAssociatedAnimals()
+        {
+
+            try
+            {
+                string query = "select * from Animal a inner join ZooAnimal za on a.Id=za.AnimalId " +
+                 "where za.ZooId = @ZooId";
+                SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
+                using (sqlDataAdapter) {
+                    sqlCommand.Parameters.AddWithValue("@ZooId", listZoos.SelectedValue);
+                    DataTable animalTable=new DataTable();
+                    sqlDataAdapter.Fill(animalTable);
+
+                    listAssociatedAnmials.DisplayMemberPath = "Name";
+                    listAssociatedAnmials.SelectedValuePath= "Id";
+                    listAssociatedAnmials.ItemsSource = animalTable.DefaultView;
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+            }
+        }
+        private void listZoos_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            showAssociatedAnimals();
+        }
     }
 }
