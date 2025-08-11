@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Configuration;
+using System.Data.SqlClient;
+using System.Data;
 namespace ZooManagerWpf
 {
     /// <summary>
@@ -20,10 +22,34 @@ namespace ZooManagerWpf
     /// </summary>
     public partial class MainWindow : Window
     {
+        SqlConnection sqlConnection;
         public MainWindow()
         {
             InitializeComponent();
-            string connection = ConfigurationManager.ConnectionStrings["ZooManagerWpf.Properties.Settings.tmamDBConnectionString"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["ZooManagerWpf.Properties.Settings.tmamDBConnectionString"].ConnectionString;
+            sqlConnection = new SqlConnection(connectionString);
+            showZoos();
         }
+
+        private void showZoos()
+        {
+            string query = "select * from Zoo";
+            SqlDataAdapter sqlDataAdapter= new SqlDataAdapter(query,sqlConnection);
+            try {
+                using (sqlDataAdapter)
+                {
+                    DataTable zooTable = new DataTable();
+                    sqlDataAdapter.Fill(zooTable);
+
+                    listZoos.DisplayMemberPath = "Location";
+                    listZoos.SelectedValuePath = "Id";
+                    listZoos.ItemsSource = zooTable.DefaultView;
+                }
+            }
+            catch (Exception e){
+                MessageBox.Show(e.ToString());
+            }
+        }
+
     }
 }
