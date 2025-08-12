@@ -75,7 +75,7 @@ namespace ZooManagerWpf
             }
             catch (Exception e)
             {
-               MessageBox.Show(e.ToString());
+               //MessageBox.Show(e.ToString());
             }
         }
         private void showAllAnimals()
@@ -229,7 +229,7 @@ namespace ZooManagerWpf
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+               // MessageBox.Show(ex.ToString());
             }
         }
 
@@ -259,6 +259,27 @@ namespace ZooManagerWpf
         private void listAllAnmials_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             showSelectedAnimalInTxtBox();
+        }
+
+        private void UpdateZoo_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string query = "Update Zoo Set Location = @Location where Id=@ZooId";
+                SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+                sqlConnection.Open();
+                sqlCommand.Parameters.AddWithValue("@ZooId", listZoos.SelectedValue);
+                sqlCommand.Parameters.AddWithValue("@Location", myTxtBox.Text);
+                sqlCommand.ExecuteScalar();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            finally { 
+              sqlConnection.Close();
+                showZoos();
+            }
         }
     }
 }
