@@ -190,5 +190,25 @@ namespace ZooManagerWpf
             }
             
         }
+
+        private void AddAnimal_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string query = "insert into Animal values(@Name)";
+                SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+                sqlConnection.Open();
+                sqlCommand.Parameters.AddWithValue("@Name", myTxtBox.Text);
+                sqlCommand.ExecuteScalar();
+            }
+            catch (Exception ex) {
+                MessageBox.Show(ex.ToString());
+            }
+            finally
+            {
+                sqlConnection.Close();
+                showAllAnimals();
+            }
+        }
     }
 }
