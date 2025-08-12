@@ -252,7 +252,7 @@ namespace ZooManagerWpf
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                //MessageBox.Show(ex.ToString());
             }
         }
 
@@ -279,6 +279,28 @@ namespace ZooManagerWpf
             finally { 
               sqlConnection.Close();
                 showZoos();
+            }
+        }
+
+        private void UpdateAnimal_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string query = "Update Animal Set Name=@Name where Id=@AnimalId ";
+                SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+                sqlConnection.Open();
+                sqlCommand.Parameters.AddWithValue("@AnimalId", listAllAnmials.SelectedValue);
+                sqlCommand.Parameters.AddWithValue("Name", myTxtBox.Text);
+                sqlCommand.ExecuteScalar();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            finally
+            {
+                sqlConnection.Close();
+                showAllAnimals();
             }
         }
     }
