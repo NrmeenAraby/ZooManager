@@ -18,7 +18,7 @@
         <Button Content="Update Zoo" Margin="10,418,512,0" VerticalAlignment="Top" Height="36"/>
         <Button Content="Update Animals List"  Margin="228,418,294,0" VerticalAlignment="Top" Height="36"/>
         <Button Content="Add Animal" Margin="228,378,294,0" VerticalAlignment="Top" Height="33"/>
-        <Button Content="Delete Animal" Margin="459,418,63,0" VerticalAlignment="Top" Height="36"/>
+        <Button Content="Delete Animal" Click="DeleteAnimal_Click" Margin="459,418,63,0" VerticalAlignment="Top" Height="36"/>
         <Button Content="Add animal to zoo" Click="AddAnimalToZoo_Click" Margin="459,10,63,0" VerticalAlignment="Top" Height="39"/>
         <TextBox x:Name="myTxtBox" TextWrapping="Wrap" Text="TextBox" Margin="10,334,286,106"/>
 
