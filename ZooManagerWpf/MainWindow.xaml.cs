@@ -75,7 +75,7 @@ namespace ZooManagerWpf
             }
             catch (Exception e)
             {
-              //  MessageBox.Show(e.ToString());
+               MessageBox.Show(e.ToString());
             }
         }
         private void showAllAnimals()
@@ -144,6 +144,28 @@ namespace ZooManagerWpf
             {
                 sqlConnection.Close();
                 showZoos() ;
+            }
+        }
+
+        private void AddAnimalToZoo_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string query = "insert into ZooAnimal values (@ZooId,@AnimalId)";
+                SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+                sqlConnection.Open();
+                sqlCommand.Parameters.AddWithValue("@ZooId", listZoos.SelectedValue);
+                sqlCommand.Parameters.AddWithValue("@AnimalId", listAllAnmials.SelectedValue);
+                sqlCommand.ExecuteScalar();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            finally {
+                sqlConnection.Close();
+                showAssociatedAnimals() ;
             }
         }
     }
