@@ -75,7 +75,7 @@ namespace ZooManagerWpf
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.ToString());
+              //  MessageBox.Show(e.ToString());
             }
         }
         private void showAllAnimals()
@@ -102,6 +102,28 @@ namespace ZooManagerWpf
         private void listZoos_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             showAssociatedAnimals();
+        }
+
+        private void DeleteZoo_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string query = "delete from Zoo where Id=@ZooId";
+                SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+                sqlConnection.Open();
+                sqlCommand.Parameters.AddWithValue("@ZooId", listZoos.SelectedValue);
+                sqlCommand.ExecuteScalar();
+
+
+            }
+            catch (Exception ex) { 
+              MessageBox.Show(ex.ToString());
+            }
+            finally
+            {
+                sqlConnection.Close();
+                showZoos();
+            }
         }
     }
 }
