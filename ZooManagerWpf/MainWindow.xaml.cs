@@ -102,6 +102,7 @@ namespace ZooManagerWpf
         private void listZoos_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             showAssociatedAnimals();
+            showSelectedZooInTxtBox();
         }
 
         private void DeleteZoo_Click(object sender, RoutedEventArgs e)
@@ -209,6 +210,55 @@ namespace ZooManagerWpf
                 sqlConnection.Close();
                 showAllAnimals();
             }
+        }
+        private void showSelectedZooInTxtBox()
+        {
+            try
+            {
+                string query = "select Location from Zoo where Id=@ZooId";
+                SqlCommand sqlCommand = new SqlCommand(query,sqlConnection);
+                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
+                using (sqlDataAdapter)
+                {
+                    sqlCommand.Parameters.AddWithValue("@ZooId", listZoos.SelectedValue);
+                    DataTable zooDataTable = new DataTable();
+                    sqlDataAdapter.Fill(zooDataTable);
+
+                    myTxtBox.Text = zooDataTable.Rows[0]["Location"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void showSelectedAnimalInTxtBox()
+        {
+            try
+            {
+                string query = "select Name from Animal where Id=@AnimalId";
+                SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
+                using (sqlDataAdapter)
+                {
+                    sqlCommand.Parameters.AddWithValue("@AnimalId", listAllAnmials.SelectedValue);
+                    DataTable zooDataTable = new DataTable();
+                    sqlDataAdapter.Fill(zooDataTable);
+
+                   
+                    myTxtBox.Text = zooDataTable.Rows[0]["Name"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void listAllAnmials_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            showSelectedAnimalInTxtBox();
         }
     }
 }
