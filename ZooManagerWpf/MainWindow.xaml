@@ -14,13 +14,13 @@
         <ListBox x:Name="listAllAnmials" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="459,54,0,0" Height="357" Width="168"/>
         <Button Content="Delete Zoo" Margin="10,294,512,0" VerticalAlignment="Top" Click="DeleteZoo_Click" Height="35"/>
         <Button Content="Remove Animal"  Margin="234,294,288,0" VerticalAlignment="Top" Height="35"/>
-        <Button Content="Add Zoo"  Margin="10,376,512,0" VerticalAlignment="Top" Height="37"/>
+        <Button Content="Add Zoo" Click="AddZoo_Click"  Margin="10,376,512,0" VerticalAlignment="Top" Height="37"/>
         <Button Content="Update Zoo" Margin="10,418,512,0" VerticalAlignment="Top" Height="36"/>
         <Button Content="Update Animals List"  Margin="228,418,294,0" VerticalAlignment="Top" Height="36"/>
         <Button Content="Add Animal" Margin="228,378,294,0" VerticalAlignment="Top" Height="33"/>
         <Button Content="Delete Animal" Margin="459,418,63,0" VerticalAlignment="Top" Height="36"/>
         <Button Content="Add animal to zoo " Margin="459,10,63,0" VerticalAlignment="Top" Height="39"/>
-        <TextBox TextWrapping="Wrap" Text="TextBox" Margin="10,334,286,106"/>
+        <TextBox x:Name="myTxtBox" TextWrapping="Wrap" Text="TextBox" Margin="10,334,286,106"/>
 
     </Grid>
 </Window>

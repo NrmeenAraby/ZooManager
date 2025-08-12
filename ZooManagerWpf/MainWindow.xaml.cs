@@ -125,5 +125,26 @@ namespace ZooManagerWpf
                 showZoos();
             }
         }
+
+        private void AddZoo_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string query = "insert into Zoo values(@Location)";
+                SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+                sqlConnection.Open();
+                sqlCommand.Parameters.AddWithValue("@Location", myTxtBox.Text);
+                sqlCommand.ExecuteScalar();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            finally
+            {
+                sqlConnection.Close();
+                showZoos() ;
+            }
+        }
     }
 }
